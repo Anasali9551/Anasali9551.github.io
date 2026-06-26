@@ -14,6 +14,10 @@
         input[type="text"]:focus { border-color: #ff3333; box-shadow: 0 0 10px rgba(255,51,51,0.5); }
         button { width: 100%; padding: 12px; background: #ff3333; border: none; border-radius: 25px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255,51,51,0.7); }
+        .download-options { margin-top: 30px; display: none; background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; }
+        .dl-btn { display: inline-block; width: 45%; margin: 5px; padding: 10px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; }
+        .dl-btn.audio { background: #007bff; }
+        .dl-btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -23,7 +27,13 @@
     <p>Download YouTube Videos For Free</p>
     
     <input type="text" id="videoLink" placeholder="Paste YouTube video link here...">
-    <button onclick="downloadVideo()">Download Now</button>
+    <button onclick="downloadVideo()">Convert Video</button>
+
+    <div class="download-options" id="downloadOptions">
+        <h3 style="margin-bottom: 15px; font-size: 16px; color: #ff3333;">Your Download Links Are Ready</h3>
+        <a id="mp4Btn" href="#" target="_blank" class="dl-btn">Download MP4 (Video)</a>
+        <a id="mp3Btn" href="#" target="_blank" class="dl-btn audio">Download MP3 (Audio)</a>
+    </div>
 </div>
 
 <script>
@@ -45,9 +55,11 @@
         }
 
         if (videoId && videoId.length === 11) {
-            // یہ بالکل آفیشل اور ڈائریکٹ ڈاؤنلوڈر لنک ہے جو کبھی فیل نہیں ہوگا
-            var downloadUrl = "https://www.ssyoutube.com/watch?v=" + videoId;
-            window.open(downloadUrl, '_blank');
+            // اب ڈاؤن لوڈ لنکس بالکل آپ ہی کی سائٹ پر جنریٹ ہوں گے
+            document.getElementById('mp4Btn').href = "https://loader.to/api/button/?url=https://www.youtube.com/watch?v=" + videoId + "&f=mp4";
+            document.getElementById('mp3Btn').href = "https://loader.to/api/button/?url=https://www.youtube.com/watch?v=" + videoId + "&f=mp3";
+            
+            document.getElementById('downloadOptions').style.display = "block";
         } else {
             alert("Invalid link! Please paste a valid YouTube URL.");
         }
