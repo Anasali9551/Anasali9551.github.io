@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
         .container { background: rgba(20, 20, 20, 0.85); padding: 40px; border-radius: 15px; box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.2); border: 1px solid rgba(255, 0, 0, 0.3); width: 100%; max-width: 500px; text-align: center; }
         h1 { color: #ff3333; margin-bottom: 10px; font-size: 28px; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
         p { color: #aaa; margin-bottom: 25px; font-size: 14px; }
-        input[type="text"] { width: 100%; padding: 12px 20px; background: #222; border: 1px solid #444; border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 20px; outline: none; transition: 0.3s; }
+        input[type="text"] { width: 100%; padding: 12px 20px; background: #222; border: 1px solid #444; border-radius: 25px; color: #fff; font-size: 16px; margin-bottom: 20px; outline: none; transition: 0.3s; text-align: center; }
         input[type="text"]:focus { border-color: #ff3333; box-shadow: 0 0 10px rgba(255,51,51,0.5); }
         button { width: 100%; padding: 12px; background: #ff3333; border: none; border-radius: 25px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255,51,51,0.7); }
@@ -22,13 +22,12 @@
 
 <div class="container">
     <h1>Silent Downloads</h1>
-    <p>یوٹیوب ویڈیوز بالکل مفت ڈاؤن لوڈ کریں</p>
+    <p>Download YouTube Videos For Free</p>
     
-    <input type="text" id="videoLink" placeholder="یوٹیوب ویڈیو کا لنک یہاں پیسٹ کریں...">
-    <button onclick="downloadVideo()">ڈاؤن لوڈ لنک جنریٹ کریں</button>
+    <input type="text" id="videoLink" placeholder="Paste YouTube video link here...">
+    <button onclick="downloadVideo()">Generate Download Link</button>
 
     <div class="result-box" id="resultBox" style="display: none;">
-        <!-- یہاں ڈاؤن لوڈ بٹن شو ہوگا -->
         <iframe id="downloadFrame" src="" scrolling="no"></iframe>
     </div>
 </div>
@@ -37,27 +36,24 @@
     function downloadVideo() {
         var videoUrl = document.getElementById('videoLink').value;
         if (videoUrl === "") {
-            alert("براہ کرم پہلے یوٹیوب ویڈیو کا لنک پیسٹ کریں!");
+            alert("Please paste a YouTube video link first!");
             return;
         }
 
-        // یوٹیوب ویڈیو کی ID نکالنا
         var regExp = /^.(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]).*/;
         var match = videoUrl.match(regExp);
 
         if (match && match[2].length == 11) {
             var videoId = match[2];
-            // فری ڈاؤنلوڈر API کا استعمال
             var apiUrl = "https://twoshotltd.com/download.php?id=" + videoId;
             
             var frame = document.getElementById('downloadFrame');
             frame.src = apiUrl;
             document.getElementById('resultBox').style.display = "block";
         } else {
-            alert("لنک درست نہیں ہے، براہ کرم یوٹیوب کا صحیح لنک ڈالیں۔");
+            alert("Invalid link! Please paste a valid YouTube URL.");
         }
     }
 </script>
 
 </body>
-</html>
