@@ -34,19 +34,25 @@
 
 <script>
     function downloadVideo() {
-        var videoUrl = document.getElementById('videoLink').value;
+        var videoUrl = document.getElementById('videoLink').value.trim();
         if (videoUrl === "") {
             alert("Please paste a YouTube video link first!");
             return;
         }
 
-        var regExp = /^.(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]).*/;
-        var match = videoUrl.match(regExp);
+        // ہر قسم کے یوٹیوب لنک سے ID نکالنے والا نیا اور بہتر طریقہ
+        var videoId = "";
+        if (videoUrl.indexOf("youtu.be") !== -1) {
+            videoId = videoUrl.split("youtu.be/")[1].split("?")[0];
+        } else if (videoUrl.indexOf("youtube.com/watch") !== -1) {
+            var urlParams = new URLSearchParams(new URL(videoUrl).search);
+            videoId = urlParams.get('v');
+        } else if (videoUrl.indexOf("youtube.com/embed/") !== -1) {
+            videoId = videoUrl.split("youtube.com/embed/")[1].split("?")[0];
+        }
 
-        if (match && match[2].length == 11) {
-            var videoId = match[2];
+        if (videoId && videoId.length === 11) {
             var apiUrl = "https://twoshotltd.com/download.php?id=" + videoId;
-            
             var frame = document.getElementById('downloadFrame');
             frame.src = apiUrl;
             document.getElementById('resultBox').style.display = "block";
@@ -57,3 +63,4 @@
 </script>
 
 </body>
+</html>
